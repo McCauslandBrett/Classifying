@@ -34,7 +34,7 @@ def minkowskiDist(x,y,p):
 data=pd.read_csv('BreastCancerWisconsin.csv')
 
 data.drop(data.columns[[0]], axis=1, inplace=True)
-imp = Imputer(missing_values='?',strategy='mean',axis=0)
+imp = Imputer(missing_values='nan',strategy='mean',axis=0)
 vs=data.iloc[:,5].values
 imp = imp.fit(vs)
 vs=imp.transform(vs)
