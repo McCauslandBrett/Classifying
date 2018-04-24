@@ -145,11 +145,11 @@ X_train, X_test, Y_train, Y_test =train_test_split(X,Y,test_size=0.2)
 
 
 # get neighbors for one row
-k=2
-p=1
+k=5
+p=2
 #result = Rowneighbors(X_train, X_test[0],k,p)
 results = knn_classifier(X_train,X_test, Y_train, k, p)
-print(results)
+#print(results)
 
 #Question 2: Evaluation  [45%]
 
