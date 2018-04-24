@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 from sklearn.preprocessing import Imputer
+from sklearn.cross_validation import train_test_split
 
 def minkowskiDist(x,y,p):
   sum=0
@@ -19,6 +20,13 @@ def minkowskiDist(x,y,p):
     sum = sum + pow((abs(x[i]-y[i])),p)
   fp= 1/p
   return pow(sum,fp)
+
+
+
+
+def knn_classifier(x_test, x_train, y_train, k, p):
+    
+    return
 # main() 
 #Question 0: Getting real data  [5%]
 
@@ -62,6 +70,13 @@ data.iloc[:,5] = vs
 # (there is obviously a 1-1 correspondence of rows between x_train 
 #  and y_train).
 
+#spliting the data
+
+X=data.iloc[:,:-1].values #the feature matrix
+Y=data.iloc[:,9].values #the class column
+
+#note Y-test is for later comparision with Y_prediction
+X_train, X_test, Y_train, Y_test =train_test_split(X,Y,test_size=0.3)
 
 #4. k = the number of nearest neighbors you select
 
