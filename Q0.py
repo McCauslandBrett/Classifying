@@ -31,18 +31,21 @@ def minkowskiDist(x,y,p):
 #Make sure you can download the dataset, load it into your workspace, 
 #import the data set
 
-data=pd.read_csv('BreastCancerWisconsin.csv')
+#data=pd.read_csv('BreastCancerWisconsin.csv')
+#data.drop(data.columns[[0]], axis=1, inplace=True)
 
-data.drop(data.columns[[0]], axis=1, inplace=True)
-imp = Imputer(missing_values='nan',strategy='mean',axis=0)
-vs=data.iloc[:,5].values
-imp = imp.fit(vs)
-vs=imp.transform(vs)
-#print(data.iloc[:,5])
-#imp = Imputer(missing_values='?',strategy='mean',axis=0)
-#imp = imp.fit(data[:,5].values)
 
-#data[:,5].values=imp.transform(data[:,5.values])
+
+
+  data=pd.read_csv('BreastCancerWisconsin.csv')
+  
+  data.drop(data.columns[[0]], axis=1, inplace=True)
+  imp = Imputer(missing_values='NaN',strategy='mean',axis=0)
+  vs=data.iloc[:,[5]].values
+  imp = imp.fit(vs)
+  vs=imp.transform(vs)
+
+
 
 #and make sure that every data point has entries for all features.
 #Important : If any data point has missing value(s), document how you 
@@ -55,8 +58,6 @@ vs=imp.transform(vs)
 #data.drop(data.columns[[0]], axis=1, inplace=True)
 
 
-#X = dataset.iloc[:,:-1].values      #[take all the lines , except the last one]
-#y = dataset.iloc[:,3].values        #Indepedent value vector
 #taking care of missing librarys
 
 
