@@ -37,8 +37,6 @@ def Rowneighbors(X_train, X_test,k,p):
      neighbors.append(d[i])
    return neighbors
 
-
-
 def knn_classifier(x_train,x_test, y_train, k, p):
     testsize=len(x_test)
     results=[]
