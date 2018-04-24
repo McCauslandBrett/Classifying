@@ -40,10 +40,32 @@ def Rowneighbors(X_train, X_test,k,p):
 def knn_classifier(x_train,x_test, y_train, k, p):
     testsize=len(x_test)
     results=[]
+    c1=0
+    c2=0
+    ypredictions=[]
+    #get the nieghbors
     for i in range(testsize):
         r = Rowneighbors(X_train, x_test[i],k,p)
-        result.append(r)
-    return results
+        results.append(r)
+    #check what class the nieghbors are
+    for i in range(testsize):
+        #l is the array of pairs
+        l=results[i]
+        for d,I in l:
+            if(y_train[I]==2):
+             c1=c1+1
+            else:
+             c2=c2+1
+        #decide the prediction
+        if(c1>c2):    
+         ypredictions.append(2)
+        else:
+         ypredictions.append(4)
+        
+        c1=0
+        c2=0
+   
+    return ypredictions
 # main() 
 #Question 0: Getting real data  [5%]
 
@@ -111,19 +133,34 @@ k=2
 p=1
 #result = Rowneighbors(X_train, X_test[0],k,p)
 results = knn_classifier(X_train,X_test, Y_train, k, p)
-print(result)
+print(results)
 
-#1.
+#Question 2: Evaluation  [45%]
 
+#shuffle data
+data = data.sample(frac=1).reset_index(drop=True)
 
+#split data into 10 folds
+dataArr = np.array_split(data, 10)
+#print(dataArr[1])
 
+#combine data
+#x_train, x_test, y_train, y_test 
 
-
-
-
-
-
-
+frames = []
+for i in range(10):# i selects the test 
+   for j in range(10):# j selects the training data 
+     if(j!=i):
+       frames.append(dataArr[j])
+   x_train=pd.concat(frames)
+   y_train = x_train.iloc[:,9].values
+   x_train=x_train.iloc[:,:-1].values
+   
+   x_test= dataArr[j]
+   y_test = x_test.iloc[:,9].values
+   x_test=x_test.iloc[:,:-1].values
+   print(i)#checking outside the innnerloop 
+   results = knn_classifier(x_train,x_test, y_train, k, p)
 
 
 
