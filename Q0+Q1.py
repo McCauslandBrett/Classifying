@@ -22,6 +22,22 @@ def minkowskiDist(R,Rn,p):
     sum = sum + pow((abs(R[i]-Rn[i])),p)
   fp= 1/p
   return pow(sum,fp)
+#performance measures: 
+def accuracy(ypred,ytest):
+ c = 0
+ for i in range(len(ytest)):
+     if(ytest[i] == ypred[i]):
+         c += 1 
+ return(c/float(len(ytest)) * 100.0)
+
+
+def sensitivity():
+    
+    return
+
+def specificity():
+    
+    return
 
 def Rowneighbors(X_train, X_test,k,p):
    d = []
@@ -146,7 +162,7 @@ dataArr = np.array_split(data, 10)
 
 #combine data
 #x_train, x_test, y_train, y_test 
-
+a=[]#accurcy
 frames = []
 for i in range(10):# i selects the test 
    for j in range(10):# j selects the training data 
@@ -160,9 +176,10 @@ for i in range(10):# i selects the test
    y_test = x_test.iloc[:,9].values
    x_test=x_test.iloc[:,:-1].values
    print(i)#checking outside the innnerloop 
-   results = knn_classifier(x_train,x_test, y_train, k, p)
-
-
+   ypred = knn_classifier(x_train,x_test, y_train, k, p)
+   a.append(accuracy(ypred,y_test))
+   frames.clear()
+ 
 
 
 
