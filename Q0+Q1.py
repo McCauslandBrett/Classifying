@@ -172,7 +172,7 @@ for i in range(10):# i selects the test
    y_train = x_train.iloc[:,9].values
    x_train=x_train.iloc[:,:-1].values
    
-   x_test= dataArr[j]
+   x_test= dataArr[i]
    y_test = x_test.iloc[:,9].values
    x_test=x_test.iloc[:,:-1].values
    print(i)#checking outside the innnerloop 
