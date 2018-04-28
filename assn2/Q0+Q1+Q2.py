@@ -193,34 +193,51 @@ def tenFoldEvaluation(data,Accurcy,Sensitivity,Specificity,k,p):
  # ------ Accurcy Decomposition -------
  Accurcy.sort(key=operator.itemgetter(2))
  AccurcyTable=pd.DataFrame(list(Accurcy))
+ 
              # ------ p=1 -------
  Acc_p1=AccurcyTable.iloc[0:90,0].values
- Acc_k_p1=AccurcyTable.iloc[0:90,2].values
+ Acc_k_p1=AccurcyTable.iloc[0:90,1].values
+ plt.scatter(Acc_k_p1,Acc_p1)
+ plt.title('Accurcy power 1')
              # ------ p=2 -------
  Acc_p2=AccurcyTable.iloc[90:180,0].values
- Acc_k_p2=AccurcyTable.iloc[90:180,2].values
+ Acc_k_p2=AccurcyTable.iloc[90:180,1].values
+ plt.scatter(Acc_k_p2,Acc_p2)
+ plt.title('Accurcy power 2')
  
  # ------ Sensitivity Decomposition -------
  
  Sensitivity.sort(key=operator.itemgetter(2))
  SensitivityTable=pd.DataFrame(list(Sensitivity))
+
              # ------ p=1 -------
  Sens_p1=SensitivityTable.iloc[0:90,0].values
- Sens_k_p1=SensitivityTable.iloc[0:90,2].values
+ Sens_k_p1=SensitivityTable.iloc[0:90,1].values
+ plt.scatter(Sens_k_p1,Sens_p1, c="g", alpha=0.4,marker='^')
+ plt.ylabel('Sensitivity')
+ plt.xlabel('k')
+ plt.title('Sensitivity')
+ plt.plot(Sens_k_p1,Sens_p1, linewidth=2.0)
               # ------ p=2 -------
  Sens_p2=SensitivityTable.iloc[90:180,0].values
- Sens_k_p2=SensitivityTable.iloc[90:180,2].values
+ Sens_k_p2=SensitivityTable.iloc[90:180,1].values
+ plt.scatter(Sens_k_p2,Sens_p2, c="b", alpha=0.4,marker='o')
+ plt.legend()
+ #plt.title('Sensitivity power 2')
  
  # ------ Specificity Decomposition ------- 
  Specificity.sort(key=operator.itemgetter(2))
  SpecificityTable=pd.DataFrame(list(Specificity))
               # ------ p=1 -------
  Spec_p1=SpecificityTable.iloc[0:90,0].values
- Spec_k_p1=SpecificityTable.iloc[0:90,2].values
+ Spec_k_p1=SpecificityTable.iloc[0:90,1].values
+ plt.scatter(Spec_p1,Spec_k_p1)
+ plt.title('Specificity power 1')
               # ------ p=2 -------
  Spec_p2=SpecificityTable.iloc[90:180,0].values
- Spec_k_p2=SpecificityTable.iloc[90:180,2].values
- 
+ Spec_k_p2=SpecificityTable.iloc[90:180,1].values
+ plt.scatter(Spec_p2,Spec_k_p2)
+ plt.title('Specificity power 2')
 
 
 
