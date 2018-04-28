@@ -129,20 +129,27 @@ def Q1(data):
 
 #Question 2: Evaluation  [45%]
 def Q2(data,Accurcy,Sensitivity,Specificity):
- k=3
- p=2
-
- tenFoldEvaluation(data,Accurcy,Sensitivity,Specificity,k,p)
- #MEANS
- Maccurcy = np.mean(Accurcy)
- Msensitivity=np.mean(Sensitivity)
- Mspecificity=np.mean(Specificity)
+ Maccurcy = []
+ Mspecificity=[]
+ Msensitivity=[]
  
- #STANDARD DEVIATIONS
- STDaccurcy = np.std(Accurcy)
- STDMsensitivity=np.std(Sensitivity)
- STDMspecificity=np.std(Specificity)
+ STDMsensitivity=[]
+ STDaccurcy=[]
+ STDMspecificity=[]
  
+ for k in range(1,10):
+  for p in range(1,3):
+   tenFoldEvaluation(data,Accurcy,Sensitivity,Specificity,k,p)
+   #MEANS
+   Maccurcy.append(np.mean(Accurcy))
+   Msensitivity.append(np.mean(Sensitivity))
+   Mspecificity.append(np.mean(Specificity))
+   #STANDARD DEVIATIONS
+   STDaccurcy.append(np.std(Accurcy))
+   STDMsensitivity.append(np.std(Sensitivity))
+   STDMspecificity.append(np.std(Specificity))
+ print(Maccurcy)
+ print('d')
  return 
 
 def tenFoldEvaluation(data,Accurcy,Sensitivity,Specificity,k,p):
@@ -164,9 +171,9 @@ def tenFoldEvaluation(data,Accurcy,Sensitivity,Specificity,k,p):
    x_test=x_test.iloc[:,:-1].values
    print(i)#checking outside the innnerloop 
    ypred = knn_classifier(x_train,x_test, y_train, k, p)
-   Accurcy.append(accuracy(ypred,y_test))
-   Sensitivity.append(sensitivity(ypred,y_test))
-   Specificity.append(specificity(ypred,y_test))
+   Accurcy.append([accuracy(ypred,y_test),k,p])
+   Sensitivity.append([sensitivity(ypred,y_test),k,p])
+   Specificity.append([specificity(ypred,y_test),k,p])
    frames.clear()
  return
 
@@ -183,6 +190,38 @@ def tenFoldEvaluation(data,Accurcy,Sensitivity,Specificity,k,p):
  Q1(data)
  Q2(data,Accurcy,Sensitivity,Specificity)
  
+ # ------ Accurcy Decomposition -------
+ Accurcy.sort(key=operator.itemgetter(2))
+ AccurcyTable=pd.DataFrame(list(Accurcy))
+             # ------ p=1 -------
+ Acc_p1=AccurcyTable.iloc[0:90,0].values
+ Acc_k_p1=AccurcyTable.iloc[0:90,2].values
+             # ------ p=2 -------
+ Acc_p2=AccurcyTable.iloc[90:180,0].values
+ Acc_k_p2=AccurcyTable.iloc[90:180,2].values
+ 
+ # ------ Sensitivity Decomposition -------
+ 
+ Sensitivity.sort(key=operator.itemgetter(2))
+ SensitivityTable=pd.DataFrame(list(Sensitivity))
+             # ------ p=1 -------
+ Sens_p1=SensitivityTable.iloc[0:90,0].values
+ Sens_k_p1=SensitivityTable.iloc[0:90,2].values
+              # ------ p=2 -------
+ Sens_p2=SensitivityTable.iloc[90:180,0].values
+ Sens_k_p2=SensitivityTable.iloc[90:180,2].values
+ 
+ # ------ Specificity Decomposition ------- 
+ Specificity.sort(key=operator.itemgetter(2))
+ SpecificityTable=pd.DataFrame(list(Specificity))
+              # ------ p=1 -------
+ Spec_p1=SpecificityTable.iloc[0:90,0].values
+ Spec_k_p1=SpecificityTable.iloc[0:90,2].values
+              # ------ p=2 -------
+ Spec_p2=SpecificityTable.iloc[90:180,0].values
+ Spec_k_p2=SpecificityTable.iloc[90:180,2].values
+ 
+
 
 
 
