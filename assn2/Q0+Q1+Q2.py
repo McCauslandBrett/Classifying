@@ -177,19 +177,7 @@ def tenFoldEvaluation(data,Accurcy,Sensitivity,Specificity,k,p):
    frames.clear()
  return
 
-
-
-
-# -------------------MAIN()--------------------------
- Accurcy=[]
- Sensitivity=[]
- Specificity=[]
- 
- 
- data = Q0()
- Q1(data)
- Q2(data,Accurcy,Sensitivity,Specificity)
- 
+ def Q2Plots(Accurcy,Sensitivity,Specificity):
  # ------ Accurcy Decomposition -------
  Accurcy.sort(key=operator.itemgetter(2))
  AccurcyTable=pd.DataFrame(list(Accurcy))
@@ -238,8 +226,18 @@ def tenFoldEvaluation(data,Accurcy,Sensitivity,Specificity,k,p):
  Spec_k_p2=SpecificityTable.iloc[90:180,1].values
  plt.scatter(Spec_p2,Spec_k_p2)
  plt.title('Specificity power 2')
+return
 
 
+# -------------------MAIN()--------------------------
+ Accurcy=[]
+ Sensitivity=[]
+ Specificity=[]
+ 
+ data = Q0()
+ Q1(data)
+ Q2(data,Accurcy,Sensitivity,Specificity)
+ Q2Plots(Accurcy,Sensitivity,Specificity)
 
 
 
