@@ -292,14 +292,14 @@ Q1(data)
 #------------------Question 2-------------------------
 # within each fold of the cross-validation, record mean and standard
 # deviation of the performance for k = 1:10, for p = 1 and p =2
-Maccurcy = []
-Mspecificity=[]
-Msensitivity=[]
+Maccurcy_tuple = []
+Mspecificity_tuple=[]
+Msensitivity_tuple=[]
 
 #standard deviation
-STDMsensitivity=[]
-STDaccurcy=[]
-STDMspecificity=[]
+STDMsensitivity_tuple=[]
+STDaccurcy_tuple=[]
+STDMspecificity_tuple=[]
 
 #shuffle data
 
@@ -335,8 +335,8 @@ for k in range(1,11): #for 10 k nieghbors
  STDMaccuracyp1_list= STDaccurcyDFrame.iloc[0:10,0].values
  STDMaccuracyp2_list= STDaccurcyDFrame.iloc[10:20,0].values
  #                    ----*----
- plt.errorbar(x= xplaceholder, y=Meanaccuracyp1,yerr=STDMaccurcy)
- plt.show()
+ #plt.errorbar(x= xplaceholder, y=Meanaccuracyp1,yerr=STDMaccurcy)
+ #plt.show()
   #----------------------*--------------------------------
  
  # Mean sensitivity sort, convert to data frame
@@ -367,7 +367,7 @@ for k in range(1,11): #for 10 k nieghbors
  
  
  #----------------------*--------------------------------
- X=
+ #X=
 
 #Q2Plots(Accurcy,Sensitivity,Specificity)
 
