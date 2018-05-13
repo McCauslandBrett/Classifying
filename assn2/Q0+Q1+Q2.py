@@ -291,15 +291,36 @@ def Q2_2(data):
  plt.ylabel(Ylabel)
  plt.savefig('SpecificityPower2')
  plt.close()
- 
-#----------------------*--------------------------------
+
  return
 
+def Q2_1(data):
+ Accurcy=[]
+ Sensitivity=[]
+ Specificity=[]
 
+ #standard deviation
 
-
-
-
+ k=3
+ p=2
+ tenFoldEvaluation(data,Accurcy,Sensitivity,Specificity,k,p)
+ #MEANS
+ Maccurcy= np.mean(Accurcy)#([accuracy(ypred,y_test),k,p])
+ Msensitivity= np.mean(Sensitivity)
+ Mspecificity = np.mean(Specificity)
+ #STANDARD DEVIATIONS
+ STDaccurcy = np.std(Accurcy)
+ STDsensitivity = np.std(Sensitivity)
+ STDspecificity = np.std(Specificity)
+ print('Maccurcy:',Maccurcy)
+ print('Msensitivity:',Msensitivity)
+ print('Mspecificity:',Mspecificity)
+ 
+ print('STDaccurcy:',STDaccurcy)
+ print('STDsensitivity:',STDsensitivity)
+ print('STDspecificity:',STDspecificity)
+ 
+ return
 # -------------------MAIN()--------------------------
 Accurcy=[]
 Sensitivity=[]
@@ -307,6 +328,7 @@ Specificity=[]
 
 data = Q0()
 Q1(data)
+Q2_1(data)
 Q2_2(data)
 
 
