@@ -297,7 +297,6 @@ Q1(data)
 Maccurcy_p1 = []
 Mspecificity_p1=[]
 Msensitivity_p1=[]
-
 #standard deviation
 STDMsensitivity_p1=[]
 STDaccurcy_p1=[]
@@ -307,7 +306,6 @@ STDMspecificity_p1=[]
 Maccurcy_p2 = []
 Mspecificity_p2 =[]
 Msensitivity_p2 =[]
-
 #standard deviation
 STDMsensitivity_p2 =[]
 STDaccurcy_p2 =[]
@@ -343,19 +341,66 @@ for k in range(1,11): #for 10 k nieghbors
    Specificity.clear()
 
 k_list=[1,2,3,4,5,6,7,8,9,10]
+Xlabel='nieghbors'
+Ylabel='performance'
  #---------------------------Accurcy-----------------------------
  
  #       ----------------- Power 1 -----------
  
 plt.errorbar(x= k_list, y=Maccurcy_p1,yerr=STDaccurcy_p1)
+plt.title('Accurcy Power 1')
+plt.xlabel(Xlabel) 
+plt.ylabel(Ylabel)
+plt.savefig('AccurcyPower1')
+plt.close()
  #               --------- Power 2 -----------
 
-plt.errorbar(x= STDMaccuracyp1_k_list, y=Maccurcy_p1,yerr=STDaccurcy_p1)
+plt.errorbar(x= k_list, y=Maccurcy_p2,yerr=STDaccurcy_p2)
+plt.title('Accurcy Power 2')
+plt.xlabel(Xlabel) 
+plt.ylabel(Ylabel)
+plt.savefig('AccurcyPower2')
+plt.close()
+
+ #---------------------------Sensitivity-----------------------------
+ 
+ #       ----------------- Power 1 -----------
+ 
+plt.errorbar(x= k_list, y=Msensitivity_p1,yerr=STDMsensitivity_p1)
+plt.title('Sensitivity Power 1')
+plt.xlabel(Xlabel) 
+plt.ylabel(Ylabel)
+plt.savefig('SensitivityPower1')
+plt.close()
+ #               --------- Power 2 -----------
+
+plt.errorbar(x= k_list,y=Msensitivity_p2,yerr=STDMsensitivity_p2)
+plt.title('Sensitivity Power 2')
+plt.xlabel(Xlabel) 
+plt.ylabel(Ylabel)
+plt.savefig('SensitivityPower2')
+plt.close()
+
+ #---------------------------Specificity-----------------------------
+ 
+ #                   -------- Power 1 -------
+ 
+plt.errorbar(x= k_list, y=Mspecificity_p1,yerr=STDMspecificity_p1)
+plt.title('Specificity Power 1')
+plt.xlabel(Xlabel) 
+plt.ylabel(Ylabel)
+plt.savefig('SpecificityPower1')
+plt.close()
+ #                   -------- Power 2 --------
+
+plt.errorbar(x= k_list,y=Mspecificity_p2,yerr=STDMspecificity_p2)
+plt.title('Specificity Power 2')
+plt.xlabel(Xlabel) 
+plt.ylabel(Ylabel)
+plt.savefig('SpecificityPower2')
+plt.close()
  
 #----------------------*--------------------------------
- 
-
-#Q2Plots(Accurcy,Sensitivity,Specificity)
 
 
 
