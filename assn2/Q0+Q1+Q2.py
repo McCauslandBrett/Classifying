@@ -309,51 +309,66 @@ for k in range(1,11): #for 10 k nieghbors
    tenFoldEvaluationq2(data,Accurcy,Sensitivity,Specificity,k,p)
 
    #MEANS
-   Maccurcy.append([np.mean(Accurcy),k,p])#([accuracy(ypred,y_test),k,p])
-   Msensitivity.append([np.mean(Sensitivity),k,p])
-   Mspecificity.append([np.mean(Specificity),k,p])
+   Maccurcy_tuple.append([np.mean(Accurcy),k,p])#([accuracy(ypred,y_test),k,p])
+   Msensitivity_tuple.append([np.mean(Sensitivity),k,p])
+   Mspecificity_tuple.append([np.mean(Specificity),k,p])
 
    #STANDARD DEVIATIONS
-   STDaccurcy.append([np.std(Accurcy),k,p])
-   STDMsensitivity.append([np.std(Sensitivity),k,p])
-   STDMspecificity.append([np.std(Specificity),k,p])
+   STDaccurcy_tuple.append([np.std(Accurcy),k,p])
+   STDMsensitivity_tuple.append([np.std(Sensitivity),k,p])
+   STDMspecificity_tuple.append([np.std(Specificity),k,p])
 
-   #Accurcy.clear()
-   #Sensitivity.clear()
-   #Specificity.clear()
- Maccurcy = sorted(Maccurcy, key=itemgetter(2))
- Meanaccuracy = pd.DataFrame(list(Maccurcy))
- Meanaccuracyp1= Meanaccuracy.iloc[0:10,0].values
- Meanaccuracyp2= Meanaccuracy.iloc[10:20,0].values
+   Accurcy.clear()
+   Sensitivity.clear()
+   Specificity.clear()
+  #----------------------*--------------------------------
+ #sort and create dataframe, convert from tuple for Mean Acurrcy
+ Maccurcy_tuple = sorted(Maccurcy_tuple, key=itemgetter(2))
+ MeanaccuracyDFrame = pd.DataFrame(list(Maccurcy_tuple))
  
- Msensitivity = sorted(Msensitivity, key=itemgetter(2))
- Msensitivity = pd.DataFrame(list(Msensitivity))
- Msensitivityp1 = Msensitivity.iloc[0:10,0].values
- Msensitivityp2= Msensitivity.iloc[10:20,0].values
- 
- Mspecificity = sorted(Mspecificity, key=itemgetter(2))
- Mspecificity  = pd.DataFrame(list(Mspecificity ))
- Mspecificityp1= Mspecificity.iloc[0:10,0].values
- Mspecificityp2= Mspecificity.iloc[10:20,0].values
- 
- STDMspecificity=sorted(STDMspecificity, key=itemgetter(2))
- STDMspecificity = pd.DataFrame(list(STDMspecificity))
- STDMspecificityp1 = STDMspecificity.iloc[0:10,0].values
- STDMspecificityp2= STDMspecificity.iloc[10:20,0].values
- 
- STDaccurcy=sorted(STDaccurcy, key=itemgetter(2))
- STDaccurcy = pd.DataFrame(list(STDaccurcy))
- STDMaccuracyp1= STDaccurcy.iloc[0:10,0].values
- STDMaccuracyp2= STDaccurcy.iloc[10:20,0].values
- 
- STDMsensitivity= sorted(STDMsensitivity, key=itemgetter(2))
- STDMsensitivity = pd.DataFrame(list(STDMsensitivity))
- STDMsensitivityp1=STDMsensitivity.iloc[0:10,0].values
- STDMsensitivityp2=STDMsensitivity.iloc[10:20,0].values
- 
- xplaceholder = [1,2,3,4,5,6,7,8,9,10]
- plt.errorbar(x= xplaceholder, y=Meanaccuracyp1,yerr=STDaccurcy)
+ #Seperate mean acurrcy by power ->list
+ Meanaccuracy_p1_list= MeanaccuracyDFrame.iloc[0:10,0].values
+ Meanaccuracy_p2_list= MeanaccuracyDFrame.iloc[10:20,0].values
+ #       -----------------*-----------
+ STDaccurcy_tuple=sorted(STDaccurcy_tuple, key=itemgetter(2))
+ STDaccurcyDFrame = pd.DataFrame(list(STDaccurcy_tuple))
+ STDMaccuracyp1_list= STDaccurcyDFrame.iloc[0:10,0].values
+ STDMaccuracyp2_list= STDaccurcyDFrame.iloc[10:20,0].values
+ #                    ----*----
+ plt.errorbar(x= xplaceholder, y=Meanaccuracyp1,yerr=STDMaccurcy)
  plt.show()
+  #----------------------*--------------------------------
+ 
+ # Mean sensitivity sort, convert to data frame
+ Msensitivity_tuple = sorted(Msensitivity_tuple, key=itemgetter(2))
+ MsensitivityDframe = pd.DataFrame(list(Msensitivity_tuple))
+ 
+ #Seperate Mean sensitivity by power ->list
+ Msensitivityp1_list = MsensitivityDframe.iloc[0:10,0].values
+ Msensitivityp2_list = MsensitivityDframe.iloc[10:20,0].values
+ #----------------------*--------------------------------
+ 
+ # Mean sensitivity sort, convert to data frame
+ Mspecificity_tuple = sorted(Mspecificity_tuple, key=itemgetter(2))
+ MspecificityDFrame = pd.DataFrame(list(Mspecificity_tuple))
+ Mspecificityp1_list= MspecificityDFrame.iloc[0:10,0].values
+ Mspecificityp2_list= MspecificityDFrame.iloc[10:20,0].values
+ #----------------------*--------------------------------
+ STDMspecificity_tuple =sorted(STDMspecificity_tuple, key=itemgetter(2))
+ STDMspecificityDFrame = pd.DataFrame(list(STDMspecificity_tuple))
+ STDMspecificityp1_list = STDMspecificityDFrame.iloc[0:10,0].values
+ STDMspecificityp2_list= STDMspecificityDFrame.iloc[10:20,0].values
+
+ #----------------------*--------------------------------
+ STDMsensitivity_tuple= sorted(STDMsensitivity_tuple, key=itemgetter(2))
+ STDMsensitivityDFrame = pd.DataFrame(list(STDMsensitivity_tuple))
+ STDMsensitivityp1_list=STDMsensitivityDFrame.iloc[0:10,0].values
+ STDMsensitivityp2_list=STDMsensitivityDFrame.iloc[10:20,0].values
+ 
+ 
+ #----------------------*--------------------------------
+ X=
+
 #Q2Plots(Accurcy,Sensitivity,Specificity)
 
 
