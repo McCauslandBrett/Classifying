@@ -122,63 +122,67 @@ def Q1(data):
  # get neighbors for one row
  k=7
  p=2
- #result = Rowneighbors(X_train, X_test[0],k,p)
  results = knn_classifier(X_train,X_test, Y_train, k, p)
     
  return 
 
 #Question 2: Evaluation  [45%]
-def Q2(data,Accurcy,Sensitivity,Specificity):
- Maccurcy = []
- Mspecificity=[]
- Msensitivity=[]
- 
- STDMsensitivity=[]
- STDaccurcy=[]
- STDMspecificity=[]
- 
- for k in range(1,10):
-  for p in range(1,3):
-   tenFoldEvaluation(data,Accurcy,Sensitivity,Specificity,k,p)
-   #MEANS
-   Maccurcy.append(np.mean(Accurcy))
-   Msensitivity.append(np.mean(Sensitivity))
-   Mspecificity.append(np.mean(Specificity))
-   #STANDARD DEVIATIONS
-   STDaccurcy.append(np.std(Accurcy))
-   STDMsensitivity.append(np.std(Sensitivity))
-   STDMspecificity.append(np.std(Specificity))
- print(Maccurcy)
- print('d')
- return 
+  #means
 
+# useage:
+# call for all values of k in range 10 
+# call for all values p in range 3 
+
+# postcondition of 1 call: 
+# Runs Knn 10 times
+# finds and the evaluation of each call 
+# Saves all 10 Accurcy,10 Sensitivity, 10 Specificity readings
+# 10 being 1 Accurcy, 1 Sensitivity, 1 Specificity for each data split
 def tenFoldEvaluation(data,Accurcy,Sensitivity,Specificity,k,p):
- #shuffle data
+ 
  data = data.sample(frac=1).reset_index(drop=True)
  #split data into 10 folds
+ #dataArr is a array of 10 arrays of data tuples
  dataArr = np.array_split(data, 10)
- frames = []
- for i in range(10):# i selects the test 
+ 
+ #stores training tuples 
+ trainingtuples = []
+ 
+ for i in range(10):  # i selects the test 
    for j in range(10):# j selects the training data 
-     if(j!=i):
-       frames.append(dataArr[j])
-   x_train=pd.concat(frames)
-   y_train = x_train.iloc[:,9].values
-   x_train=x_train.iloc[:,:-1].values
+     if(j!=i):        # if not i it becomes part of the traning data
+       trainingtuples.append(dataArr[j])
    
-   x_test= dataArr[i]
-   y_test = x_test.iloc[:,9].values
-   x_test=x_test.iloc[:,:-1].values
-   print(i)#checking outside the innnerloop 
+   # Splitting the data into the folds
+   
+   # create a table with the training data
+   x_train=pd.concat(trainingtuples)  #let x_train = traingtuples collection
+   
+   y_train = x_train.iloc[:,9].values #save class labels 
+   x_train=x_train.iloc[:,:-1].values #get rid of labels
+   
+   #Gathering the testing data
+   x_test= dataArr[i] # the test data is i
+   y_test = x_test.iloc[:,9].values # save the class lables y
+   x_test=x_test.iloc[:,:-1].values # get rid of the class labels x
+   
+   #ypred[] will return labels array that should match the testing labels
+   
    ypred = knn_classifier(x_train,x_test, y_train, k, p)
+   
+   #call and append the evaluation %'s 
    Accurcy.append([accuracy(ypred,y_test),k,p])
    Sensitivity.append([sensitivity(ypred,y_test),k,p])
    Specificity.append([specificity(ypred,y_test),k,p])
-   frames.clear()
+   trainingtuples.clear()
  return
 
- def Q2Plots(Accurcy,Sensitivity,Specificity):
+#precondition: Q1
+#Accurcy: percentage for  
+#postcondition: plots = each power,for the evaluations gathered for all 10 folds
+def Q2Plots(Accurcy,Sensitivity,Specificity):
  # ------ Accurcy Decomposition -------
+ 
  Accurcy.sort(key=operator.itemgetter(2))
  AccurcyTable=pd.DataFrame(list(Accurcy))
  
@@ -187,11 +191,13 @@ def tenFoldEvaluation(data,Accurcy,Sensitivity,Specificity,k,p):
  Acc_k_p1=AccurcyTable.iloc[0:90,1].values
  plt.scatter(Acc_k_p1,Acc_p1)
  plt.title('Accurcy power 1')
+ plt.figure()
              # ------ p=2 -------
  Acc_p2=AccurcyTable.iloc[90:180,0].values
  Acc_k_p2=AccurcyTable.iloc[90:180,1].values
  plt.scatter(Acc_k_p2,Acc_p2)
  plt.title('Accurcy power 2')
+ plt.figure()
  
  # ------ Sensitivity Decomposition -------
  
@@ -206,11 +212,13 @@ def tenFoldEvaluation(data,Accurcy,Sensitivity,Specificity,k,p):
  plt.xlabel('k')
  plt.title('Sensitivity')
  plt.plot(Sens_k_p1,Sens_p1, linewidth=2.0)
+ plt.figure()
               # ------ p=2 -------
  Sens_p2=SensitivityTable.iloc[90:180,0].values
  Sens_k_p2=SensitivityTable.iloc[90:180,1].values
  plt.scatter(Sens_k_p2,Sens_p2, c="b", alpha=0.4,marker='o')
  plt.legend()
+ plt.figure()
  #plt.title('Sensitivity power 2')
  
  # ------ Specificity Decomposition ------- 
@@ -221,23 +229,55 @@ def tenFoldEvaluation(data,Accurcy,Sensitivity,Specificity,k,p):
  Spec_k_p1=SpecificityTable.iloc[0:90,1].values
  plt.scatter(Spec_p1,Spec_k_p1)
  plt.title('Specificity power 1')
+ plt.figure();
               # ------ p=2 -------
  Spec_p2=SpecificityTable.iloc[90:180,0].values
  Spec_k_p2=SpecificityTable.iloc[90:180,1].values
  plt.scatter(Spec_p2,Spec_k_p2)
  plt.title('Specificity power 2')
-return
+ plt.figure()
+ return
 
 
 # -------------------MAIN()--------------------------
- Accurcy=[]
- Sensitivity=[]
- Specificity=[]
+Accurcy=[]
+Sensitivity=[]
+Specificity=[]
  
- data = Q0()
- Q1(data)
- Q2(data,Accurcy,Sensitivity,Specificity)
- Q2Plots(Accurcy,Sensitivity,Specificity)
+data = Q0()
+Q1(data)
+#------------------Question 2-------------------------
+Maccurcy = []
+Mspecificity=[]
+Msensitivity=[]
+ 
+#standard deviation
+STDMsensitivity=[]
+STDaccurcy=[]
+STDMspecificity=[]
+ 
+#shuffle data
+
+# 30 times 
+for k in range(1,11): #for 10 k nieghbors
+ for p in range(1,4):  #for 3 powers
+   tenFoldEvaluation(data,Accurcy,Sensitivity,Specificity,k,p)
+   
+   #MEANS
+   Maccurcy.append([np.mean(Accurcy),k,p])#([accuracy(ypred,y_test),k,p])
+   Msensitivity.append([np.mean(Sensitivity),k,p])
+   Mspecificity.append([np.mean(Specificity),k,p])
+   
+   #STANDARD DEVIATIONS
+   STDaccurcy.append([np.std(Accurcy),k,p])
+   STDMsensitivity.append([np.std(Sensitivity),k,p])
+   STDMspecificity.append([np.std(Specificity),k,p])
+   
+   Accurcy.clear()
+   Sensitivity.clear()
+   Specificity.clear()
+   
+Q2Plots(Accurcy,Sensitivity,Specificity)
 
 
 
