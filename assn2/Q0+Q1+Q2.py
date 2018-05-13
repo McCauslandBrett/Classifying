@@ -321,8 +321,40 @@ for k in range(1,11): #for 10 k nieghbors
    #Accurcy.clear()
    #Sensitivity.clear()
    #Specificity.clear()
-
-Q2Plots(Accurcy,Sensitivity,Specificity)
+ Maccurcy = sorted(Maccurcy, key=itemgetter(2))
+ Meanaccuracy = pd.DataFrame(list(Maccurcy))
+ Meanaccuracyp1= Meanaccuracy.iloc[0:10,0].values
+ Meanaccuracyp2= Meanaccuracy.iloc[10:20,0].values
+ 
+ Msensitivity = sorted(Msensitivity, key=itemgetter(2))
+ Msensitivity = pd.DataFrame(list(Msensitivity))
+ Msensitivityp1 = Msensitivity.iloc[0:10,0].values
+ Msensitivityp2= Msensitivity.iloc[10:20,0].values
+ 
+ Mspecificity = sorted(Mspecificity, key=itemgetter(2))
+ Mspecificity  = pd.DataFrame(list(Mspecificity ))
+ Mspecificityp1= Mspecificity.iloc[0:10,0].values
+ Mspecificityp2= Mspecificity.iloc[10:20,0].values
+ 
+ STDMspecificity=sorted(STDMspecificity, key=itemgetter(2))
+ STDMspecificity = pd.DataFrame(list(STDMspecificity))
+ STDMspecificityp1 = STDMspecificity.iloc[0:10,0].values
+ STDMspecificityp2= STDMspecificity.iloc[10:20,0].values
+ 
+ STDaccurcy=sorted(STDaccurcy, key=itemgetter(2))
+ STDaccurcy = pd.DataFrame(list(STDaccurcy))
+ STDMaccuracyp1= STDaccurcy.iloc[0:10,0].values
+ STDMaccuracyp2= STDaccurcy.iloc[10:20,0].values
+ 
+ STDMsensitivity= sorted(STDMsensitivity, key=itemgetter(2))
+ STDMsensitivity = pd.DataFrame(list(STDMsensitivity))
+ STDMsensitivityp1=STDMsensitivity.iloc[0:10,0].values
+ STDMsensitivityp2=STDMsensitivity.iloc[10:20,0].values
+ 
+ xplaceholder = [1,2,3,4,5,6,7,8,9,10]
+ plt.errorbar(x= xplaceholder, y=Meanaccuracyp1,yerr=STDaccurcy)
+ plt.show()
+#Q2Plots(Accurcy,Sensitivity,Specificity)
 
 
 
